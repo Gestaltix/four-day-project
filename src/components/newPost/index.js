@@ -1,8 +1,8 @@
-import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import React, { Component } from 'react';
+import './index.css'
 
 class NewPost extends Component {
     constructor(props) {
@@ -14,9 +14,9 @@ class NewPost extends Component {
 
     render() {
         return (
-            <Paper>
+            <Paper className='newPostPaper'>
                 <form onSubmit={this.submitHandler}>
-                    <TextField label='Content' value={this.state.content} onChange={this.changeContent}></TextField>
+                    <TextField variant='outlined' label='Content' value={this.state.content} onChange={this.changeContent}></TextField>
                     <div><Button type='form'>BLITZ</Button></div>
                 </form>
             </Paper>
@@ -32,6 +32,7 @@ class NewPost extends Component {
         e.preventDefault();
 
         const headers = new Headers({
+            'content-type': 'application/json',
             Authorization: 'Bearer ' + this.props.token
         })
 
@@ -44,10 +45,6 @@ class NewPost extends Component {
         }
 
         fetch('https://propulsion-blitz.herokuapp.com/api/blitzs/', options)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
     }
 }
 

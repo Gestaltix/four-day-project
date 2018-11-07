@@ -3,3 +3,13 @@
   text-align: center;
   
 }
+
+.loginPaper {
+  margin: auto;
+  width: 30%;
+  text-align: center;
+}
+
+.loginPaper * > div{
+  margin:  2%;
+}
