@@ -1,10 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import Login from './containers/login';
+import Feed from './containers/feed'
+import User from './containers/user'
+import { MuiThemeProvider } from '@material-ui/core/styles'
+import './index.css'
+import 'typeface-roboto';
 import * as serviceWorker from './serviceWorker';
+import blue from './themes/blue'
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux';
+import store from './Store'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <MuiThemeProvider theme={blue}>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path='/' component={Login} />
+                    <Route exact path='/feed' component={Feed} />
+                    <Route exact path='/users/:id' component={User} />
+                </Switch>
+            </BrowserRouter>
+        </Provider>
+    </MuiThemeProvider>
+    , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
