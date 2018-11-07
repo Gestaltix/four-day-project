@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './containers/login';
-import Feed from './containers/feed'
-import User from './containers/user'
-import { MuiThemeProvider } from '@material-ui/core/styles'
+import Feed from './containers/feed';
+import User from './containers/user';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import './index.css'
 import 'typeface-roboto';
 import * as serviceWorker from './serviceWorker';
 import blue from './themes/blue'
-import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './Store'
+import store from './Store';
+import Me from './containers/me';
+import LikedFeed from './containers/likedFeed'
+import Users from './containers/users'
 
 ReactDOM.render(
     <MuiThemeProvider theme={blue}>
@@ -18,7 +21,10 @@ ReactDOM.render(
             <BrowserRouter>
                 <Switch>
                     <Route exact path='/' component={Login} />
+                    <Route exact path='/me' component={Me} />
                     <Route exact path='/feed' component={Feed} />
+                    <Route exact path='/likedfeed' component={LikedFeed} />
+                    <Route exact path='/users' component={Users} />
                     <Route exact path='/users/:id' component={User} />
                 </Switch>
             </BrowserRouter>

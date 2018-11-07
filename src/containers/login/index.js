@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
-import { connection } from '../../helpers/mapStateToProps'
-import { Redirect } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import { connection } from '../../helpers/mapStateToProps';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
 
 class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
-      password: '',
-      accessToken: null
+      password: ''
     }
   }
 
@@ -22,7 +21,7 @@ class Login extends Component {
           <TextField label='Password'></TextField>
           <div><Button type='form'>Log In</Button></div>
         </form> :
-        <Redirect to='/feed'></Redirect>
+        <Redirect to='/me'></Redirect>
     );
   }
 
@@ -45,7 +44,7 @@ class Login extends Component {
     })
 
     const body = JSON.stringify({
-      email: 'fake1@email.com',
+      email: 'fake4@email.com',
       password: 'password'
     })
 
@@ -58,10 +57,10 @@ class Login extends Component {
     fetch('https://propulsion-blitz.herokuapp.com/api/login', options)
       .then(res => res.json())
       .then(data => {
-        console.log("the data", data)
         this.props.dispatch({
           type: 'changeToken',
           token: data.token,
+          id: data._id
         })
       })
   }

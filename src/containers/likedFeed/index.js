@@ -1,11 +1,12 @@
 import { connection } from '../../helpers/mapStateToProps.js';
 import { Redirect } from 'react-router-dom';
-import React, { Component } from 'react';
 import Post from '../../components/post';
-import './index.css';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import NewPost from '../../components/newPost/index.js';
 const uuid = require('uuid/v4');
 
-class Feed extends Component {
+class LikedFeed extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -16,11 +17,13 @@ class Feed extends Component {
         return this.state.feed !== 'unauthorized' ?
             this.state.feed ?
                 <div>
+                    <NewPost token={this.props.token} />
                     <ul className='feedList'>
                         {this.state.feed.map((blitz) => {
-                            return <Post blitz={blitz} key={uuid()} token={this.props.token} />
+                            return blitz.isLiked ? <Post blitz={blitz} key={uuid()} token={this.props.token} /> : null
                         })}
                     </ul>
+                    <Link to='/users/5a02dbd10f1bde000488f228'>Link to Users</Link>
                 </div>
                 :
                 <p>Loading...</p>
@@ -46,6 +49,6 @@ class Feed extends Component {
     }
 }
 
-const connectedFeed = connection(Feed)
+const connectedFeed = connection(LikedFeed)
 
 export default connectedFeed

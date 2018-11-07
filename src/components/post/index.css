@@ -1,0 +1,12 @@
+.postAvatar {
+    height: 30%;
+    width: 30%;
+    border-radius: 100%
+}
+
+.postContainer {
+    text-align: center;
+    display: inline-block;
+    width: 30%;
+    margin: 1%;
+}
