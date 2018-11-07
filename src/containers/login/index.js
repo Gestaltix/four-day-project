@@ -36,18 +36,29 @@ class Login extends Component {
       password: e.currentTarget.value
     })
   }
+
   submitLogin = (e) => {
     e.preventDefault();
+
+    const headers = new Headers({
+      "Content-type": "application/json"
+    })
+
+    const body = JSON.stringify({
+      email: 'fake1@email.com',
+      password: 'password'
+    })
+
     const options = {
       method: 'POST',
-      body: {
-        username: 'fake4@email.com',
-        password: 'password'
-      }
+      body: body,
+      headers: headers
     }
+
     fetch('https://propulsion-blitz.herokuapp.com/api/login', options)
       .then(res => res.json())
       .then(data => {
+        console.log("the data", data)
         this.props.dispatch({
           type: 'changeToken',
           token: data.token,

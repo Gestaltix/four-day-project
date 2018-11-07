@@ -15,11 +15,11 @@ class User extends Component {
         const options = {
             headers: headers
         }
-        fetch(`https://propulsion-blitz.herokuapp.com/api/users/5a02dbd10f1bde000488f228`, options)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
+        // fetch(`https://propulsion-blitz.herokuapp.com/api/users/5a02dbd10f1bde000488f228`, options)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data)
+        //     })
     }
 }
 

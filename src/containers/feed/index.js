@@ -17,7 +17,7 @@ class Feed extends Component {
         const headers = new Headers({
             Authorization: 'Bearer ' + this.props.token
         })
-        console.log(this.props.token)
+        console.log("the props", this.props.token)
         const options = {
             method: "GET",
             headers: headers
