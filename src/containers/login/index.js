@@ -95,6 +95,9 @@ class Login extends Component {
     })
 
     const body = JSON.stringify({
+      // Use the two lines below to test the login
+      // email: this.state.email,
+      // password: this.state.password
       email: 'fake4@email.com',
       password: 'password'
     })
