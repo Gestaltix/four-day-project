@@ -5,6 +5,7 @@
 }
 
 .postContainer {
+    padding: 10px;
     text-align: center;
     display: inline-block;
     width: 30%;

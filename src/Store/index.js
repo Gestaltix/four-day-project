@@ -10,8 +10,9 @@ const reducer = (state = {
 }, action) => {
     const newState = { ...state };
     switch (action.type) {
-        case 'setId':
-            newState.id = action.id
+        case 'login':
+            newState.id = action.data._id
+            newState.token = action.data.token
             return newState
         case 'setToken':
             newState.token = action.token
@@ -20,6 +21,8 @@ const reducer = (state = {
             newState.id = null;
             newState.token = null;
             newState.users = null;
+            newState.feed = null;
+            newState.user = null;
             return newState
         case 'setUsers':
             newState.users = action.users;
@@ -29,6 +32,16 @@ const reducer = (state = {
             return newState;
         case 'setFeed':
             newState.feed = action.feed;
+            return newState;
+        case 'changePost':
+            newState.feed = newState.feed.map((post) => {
+                return post._id === action.post._id ? action.post : post;
+            })
+            return newState
+        case 'changeUser':
+            newState.users = newState.users.map((user) => {
+                return user._id === action.user._id ? action.user : user;
+            })
             return newState;
         default:
             return state

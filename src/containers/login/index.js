@@ -42,32 +42,16 @@ class Login extends Component {
 
   handleRegistration = (e) => {
     e.preventDefault()
-    const headers = new Headers({
-      "Content-type": "application/json"
-    })
-
-    const body = JSON.stringify({
-      email: this.state.email,
-      password: this.state.password
-    })
-
-    const options = {
+    this.props.dispatch({
+      special: true,
+      type: 'login',
       method: 'POST',
-      body: body,
-      headers: headers
-    }
-    fetch('https://propulsion-blitz.herokuapp.com/api/users', options)
-      .then(res => res.json())
-      .then(data => { console.log(data) })
-    fetch('https://propulsion-blitz.herokuapp.com/api/login', options)
-      .then(res => res.json())
-      .then(data => {
-        this.props.dispatch({
-          type: 'changeToken',
-          token: data.token,
-          id: data._id
-        })
-      })
+      endpoint: 'login',
+      body: {
+        email: this.state.email,
+        password: this.state.password
+      }
+    })
   }
 
   changeEmail = (e) => {

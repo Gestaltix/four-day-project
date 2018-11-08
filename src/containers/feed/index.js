@@ -16,7 +16,7 @@ class Feed extends Component {
                     <ul className='feedList'>
                         <NewPost />
                         {this.props.feed.map((post) => {
-                            return <Post post={post} key={uuid()} />
+                            return <Post post={post} key={post._id} handleClick={this.handleClick} />
                         })}
                     </ul>
                     :
@@ -25,6 +25,25 @@ class Feed extends Component {
                 <Redirect to='/' />}
         </div>
     }
+
+    handleClick = (id) => {
+        const headers = new Headers({
+            Authorization: 'Bearer ' + this.props.token
+        })
+        const options = {
+            headers: headers,
+            method: 'POST'
+        }
+        fetch(`https://propulsion-blitz.herokuapp.com/api/blitzs/${id}/like`, options)
+            .then(res => res.json())
+            .then(data => {
+                this.props.dispatch({
+                    type: 'changePost',
+                    post: data
+                })
+            })
+    }
+
     componentDidMount = () => {
         const headers = new Headers({
             Authorization: 'Bearer ' + this.props.token

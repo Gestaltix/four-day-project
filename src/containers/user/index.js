@@ -22,8 +22,8 @@ class User extends Component {
                                     'Unfollow' : 'Follow'}
                             </Button>
                             <ul className='userBlitzs'>
-                                {this.props.user.blitzs.map(blitz => {
-                                    return <Post blitz={blitz} key={blitz._id} />
+                                {this.props.user.blitzs.map(post => {
+                                    return <Post post={post} key={post._id} />
                                 })}
                             </ul>
                         </Paper>
@@ -70,7 +70,7 @@ class User extends Component {
                         user: 'unauthorized'
                     }) :
                     this.props.dispatch({
-                        type: 'setUser',
+                        type: 'changeUser',
                         user: { ...this.state.user, isFollowed: data.isFollowed }
                     })
             })

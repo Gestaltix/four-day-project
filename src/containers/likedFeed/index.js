@@ -15,7 +15,7 @@ class LikedFeed extends Component {
                     <ul className='feedList'>
                         <NewPost />
                         {this.props.feed.map((post) => {
-                            return post.isLiked ? <Post post={post} key={uuid()} /> : null
+                            return post.isLiked ? <Post post={post} key={uuid()} handleClick={this.handleClick} /> : null
                         })}
                     </ul>
                     :
@@ -24,6 +24,25 @@ class LikedFeed extends Component {
                 <Redirect to='/' />}
         </div>
     }
+
+    handleClick = (id) => {
+        const headers = new Headers({
+            Authorization: 'Bearer ' + this.props.token
+        })
+        const options = {
+            headers: headers,
+            method: 'POST'
+        }
+        fetch(`https://propulsion-blitz.herokuapp.com/api/blitzs/${id}/like`, options)
+            .then(res => res.json())
+            .then(data => {
+                this.props.dispatch({
+                    type: 'changePost',
+                    post: data
+                })
+            })
+    }
+
     componentDidMount = () => {
         const headers = new Headers({
             Authorization: 'Bearer ' + this.props.token
@@ -37,7 +56,7 @@ class LikedFeed extends Component {
             .then(res => res.status === 401 ? 'unauthorized' : res.json())
             .then(data => {
                 this.props.dispatch({
-                    type: 'setProps',
+                    type: 'setFeed',
                     feed: data
                 })
             })

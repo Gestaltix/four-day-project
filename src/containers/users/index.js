@@ -13,7 +13,7 @@ class Users extends Component {
                 this.props.users ?
                     <div>
                         <ul className='usersUl'>{this.props.users.map(user => {
-                            return <MiniUser user={user} key={user._id} />
+                            return <MiniUser user={user} key={user._id} handleClick={this.handleClick} />
                         })}</ul>
                     </div>
                     :
@@ -22,6 +22,26 @@ class Users extends Component {
                 <Redirect to='/' />}
         </div>
     }
+
+    handleClick = (id) => {
+        const headers = {
+            Authorization: 'Bearer ' + this.props.token
+        }
+        const options = {
+            headers: headers,
+            method: 'POST'
+        }
+        fetch(`https://propulsion-blitz.herokuapp.com/api/users/${id}/follow`, options)
+            .then(res => res.status === 401 ? 'unauthorized' : res.json())
+            .then(data => {
+                console.log('dispatching')
+                this.props.dispatch({
+                    type: 'changeUser',
+                    user: data
+                })
+            })
+    }
+
     componentDidMount = () => {
         const headers = new Headers({
             Authorization: 'Bearer ' + this.props.token
