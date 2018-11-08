@@ -10,7 +10,7 @@ class Me extends Component {
     render() {
         return this.props.token ?
             <Paper className='mePaper'>
-                <Link to='/feed'><Button>To Feed</Button></Link>
+                <Link to='/feed'><Button>Feed</Button></Link>
                 <Link to='/likedfeed'><Button>Liked Posts</Button></Link>
                 <Link to='/users'><Button>Users</Button></Link>
                 <Logout />
