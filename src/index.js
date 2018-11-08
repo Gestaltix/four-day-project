@@ -20,6 +20,8 @@ if (localStorage.token) {
         token: localStorage.token,
     })
 }
+
+
 ReactDOM.render(
     <MuiThemeProvider theme={blue}>
         <Provider store={store}>
@@ -35,7 +37,7 @@ ReactDOM.render(
         </Provider>
     </MuiThemeProvider>
     , document.getElementById('root'));
-
+//eslint-disable-next-line
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA

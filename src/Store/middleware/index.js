@@ -1,11 +1,11 @@
 
 
 const customMiddleWare = store => dispatch => action => {
-    console.log(action)
     if (!action.special) {
         return dispatch(action)
     }
     const headers = new Headers({
+        Authorization: store.getState().token ? 'Bearer ' + store.getState().token : null,
         'content-type': 'application/json'
     })
     const options = {
@@ -14,9 +14,11 @@ const customMiddleWare = store => dispatch => action => {
         method: action.method,
     }
     fetch(`https://propulsion-blitz.herokuapp.com/api/${action.endpoint}`, options)
-        .then(res => res.json())
+        .then(res => res.status === 401 ? null : res.json())
         .then(data => {
-            console.log(data)
+            if (data === null) {
+                return null
+            }
             dispatch({
                 type: action.type,
                 data: data

@@ -1,7 +1,6 @@
-import { createStore, applyMiddleware } from 'redux';
-import customMiddleWare from './middleware';
+import { combineReducers } from 'redux';
 
-const reducer = (state = {
+const authentication = (state = {
     id: null,
     token: null,
     feed: null,
@@ -27,6 +26,17 @@ const reducer = (state = {
                 users: null,
             }
             return newState
+        default:
+            return state
+    }
+}
+
+const users = (state = {
+    user: null,
+    token: null,
+}, action) => {
+    let newState = state;
+    switch (action.type) {
         case 'changeUser':
             newState.users = newState.users.map((user) => {
                 return user._id === action.data._id ? action.data : user;
@@ -46,6 +56,16 @@ const reducer = (state = {
                 return blitz._id === action.data._id ? action.data : blitz;
             })
             return newState
+        default:
+            return state
+    }
+}
+
+const feed = (state = {
+    feed: null,
+}, action) => {
+    const newState = { ...state };
+    switch (action.type) {
         case 'setFeed':
             newState.feed = action.data;
             return newState;
@@ -60,6 +80,4 @@ const reducer = (state = {
 }
 
 
-const store = createStore(reducer, applyMiddleware(customMiddleWare))
-
-export default store;
+export default combineReducers({ feed: feed, users: users, auth: authentication })

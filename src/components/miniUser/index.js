@@ -20,7 +20,6 @@ class MiniUser extends Component {
             <Redirect to='/' />
     }
     handleClick = () => {
-        console.log('sending ' + this.props.user._id)
         this.props.handleClick(this.props.user._id)
     }
 }

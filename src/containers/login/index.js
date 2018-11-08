@@ -2,11 +2,12 @@ import { connection } from '../../helpers/mapStateToProps';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import './index.css';
 
 class Login extends Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -14,44 +15,6 @@ class Login extends Component {
       password: '',
       value: 0,
     }
-  }
-
-  render() {
-    return (
-      !this.props.token ?
-        <div>
-          <Paper className='loginPaper'>
-            <form onSubmit={this.submitLogin}>
-              <TextField label='Email' value={this.state.email} onChange={this.changeEmail}></TextField>
-              <TextField label='Password' value={this.state.password} onChange={this.changePassword}></TextField>
-              <div><Button type='form'>Log In</Button></div>
-            </form>
-          </Paper>
-          <Paper className='loginPaper'>
-            <form onSubmit={this.handleRegistration}>
-              <TextField label='Email' value={this.state.email} onChange={this.changeEmail}></TextField>
-              <TextField label='Password' value={this.state.password} onChange={this.changePassword}></TextField>
-              <div><Button type='form'>Register</Button></div>
-            </form>
-          </Paper>
-        </div>
-        :
-        <Redirect to='/feed'></Redirect>
-    );
-  }
-
-  handleRegistration = (e) => {
-    e.preventDefault()
-    this.props.dispatch({
-      special: true,
-      type: 'login',
-      method: 'POST',
-      endpoint: 'login',
-      body: {
-        email: this.state.email,
-        password: this.state.password
-      }
-    })
   }
 
   changeEmail = (e) => {
@@ -65,43 +28,62 @@ class Login extends Component {
     })
   }
 
+  render() {
+    return (
+      !this.props.token ?
+
+        <div>
+          <Paper className='loginPaper'>
+            <form onSubmit={this.submitLogin}>
+              <TextField label='Email' value={this.state.email} onChange={this.changeEmail}></TextField>
+              <TextField label='Password' value={this.state.password} onChange={this.changePassword}></TextField>
+              <div><Button type='form'>Log In</Button></div>
+            </form>
+          </Paper>
+          <Paper className='loginPaper'>
+            <form onSubmit={this.submitRegistration}>
+              <TextField label='Email' value={this.state.email} onChange={this.changeEmail}></TextField>
+              <TextField label='Password' value={this.state.password} onChange={this.changePassword}></TextField>
+              <div><Button type='form'>Register</Button></div>
+            </form>
+          </Paper>
+        </div>
+        :
+        <Redirect to='/feed'></Redirect>
+    );
+  }
+
   submitLogin = (e) => {
-    e.preventDefault();
-
-    const headers = new Headers({
-      "Content-type": "application/json"
-    })
-
-    const body = JSON.stringify({
-      // Use the two lines below to test the login
-      // email: this.state.email,
-      // password: this.state.password
-      email: 'fake4@email.com',
-      password: 'password'
-    })
-
-    const options = {
+    e.preventDefault()
+    this.props.dispatch({
+      special: true,
+      type: 'login',
       method: 'POST',
-      body: body,
-      headers: headers
-    }
+      endpoint: 'login',
+      body: {
+        // email: this.state.email,
+        // password: this.state.password
+        email: 'fake3@email.com',
+        password: 'password'
+      }
+    })
+  }
 
-    fetch('https://propulsion-blitz.herokuapp.com/api/login', options)
-      .then(res => res.json())
-      .then(data => {
-        localStorage.setItem('token', data.token);
-        this.props.dispatch({
-          type: 'setId',
-          id: data._id
-        })
-        this.props.dispatch({
-          type: 'setToken',
-          token: data.token
-        })
-      })
+  submitRegistration = (e) => {
+    e.preventDefault();
+    this.props.dispatch({
+      special: true,
+      type: 'login',
+      method: 'POST',
+      endpoint: 'users',
+      body: {
+        // email: this.state.email,
+        // password: this.state.password
+      },
+    })
   }
 }
 
 const connectedLogin = connection(Login)
 
-export default connectedLogin;
+export default withRouter(connectedLogin);

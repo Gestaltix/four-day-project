@@ -16,7 +16,7 @@ class NewPost extends Component {
         return (
             <Paper className='newPostPaper'>
                 <form onSubmit={this.submitHandler}>
-                    <TextField variant='outlined' label='Content' value={this.state.content} onChange={this.changeContent}></TextField>
+                    <TextField variant='outlined' label='Content' value={this.state.content} onChange={this.changeContent} fullWidth></TextField>
                     <div><Button type='form'>BLITZ</Button></div>
                 </form>
             </Paper>

@@ -26,40 +26,21 @@ class LikedFeed extends Component {
     }
 
     handleClick = (id) => {
-        const headers = new Headers({
-            Authorization: 'Bearer ' + this.props.token
+        this.props.dispatch({
+            special: true,
+            type: 'changePost',
+            method: 'POST',
+            endpoint: `blitzs/${id}/like`,
         })
-        const options = {
-            headers: headers,
-            method: 'POST'
-        }
-        fetch(`https://propulsion-blitz.herokuapp.com/api/blitzs/${id}/like`, options)
-            .then(res => res.json())
-            .then(data => {
-                this.props.dispatch({
-                    type: 'changePost',
-                    post: data
-                })
-            })
     }
 
     componentDidMount = () => {
-        const headers = new Headers({
-            Authorization: 'Bearer ' + this.props.token
+        this.props.dispatch({
+            special: true,
+            type: 'setFeed',
+            method: 'GET',
+            endpoint: 'feed',
         })
-        const options = {
-            method: "GET",
-            headers: headers
-        }
-
-        fetch('https://propulsion-blitz.herokuapp.com/api/feed', options)
-            .then(res => res.status === 401 ? 'unauthorized' : res.json())
-            .then(data => {
-                this.props.dispatch({
-                    type: 'setFeed',
-                    feed: data
-                })
-            })
     }
 }
 
