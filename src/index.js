@@ -11,17 +11,21 @@ import blue from './themes/blue'
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Store';
-import Me from './containers/me';
 import LikedFeed from './containers/likedFeed'
 import Users from './containers/users'
 
+if (localStorage.token) {
+    store.dispatch({
+        type: 'setToken',
+        token: localStorage.token,
+    })
+}
 ReactDOM.render(
     <MuiThemeProvider theme={blue}>
         <Provider store={store}>
             <BrowserRouter>
                 <Switch>
                     <Route exact path='/' component={Login} />
-                    <Route exact path='/me' component={Me} />
                     <Route exact path='/feed' component={Feed} />
                     <Route exact path='/likedfeed' component={LikedFeed} />
                     <Route exact path='/users' component={Users} />

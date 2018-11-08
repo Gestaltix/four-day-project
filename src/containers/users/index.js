@@ -1,5 +1,6 @@
 import { connection } from '../../helpers/mapStateToProps.js';
 import MiniUser from '../../components/miniUser';
+import Me from '../me';
 import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import './index.css';
@@ -14,9 +15,12 @@ class Users extends Component {
     render() {
         return this.state.users !== 'unauthorized' ?
             this.state.users ?
-                <ul className='usersUl'>{this.state.users.map(user => {
-                    return <MiniUser user={user} token={this.props.token} key={user._id} />
-                })}</ul>
+                <div>
+                    <Me />
+                    <ul className='usersUl'>{this.state.users.map(user => {
+                        return <MiniUser user={user} key={user._id} />
+                    })}</ul>
+                </div>
                 :
                 <p>Loading...</p>
             :

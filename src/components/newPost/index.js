@@ -33,7 +33,7 @@ class NewPost extends Component {
 
         const headers = new Headers({
             'content-type': 'application/json',
-            Authorization: 'Bearer ' + this.props.token
+            Authorization: 'Bearer ' + localStorage.token
         })
 
         const body = JSON.stringify(this.state)

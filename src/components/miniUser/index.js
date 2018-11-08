@@ -27,7 +27,7 @@ class MiniUser extends Component {
     }
     handleClick = () => {
         const headers = {
-            Authorization: 'Bearer ' + this.props.token
+            Authorization: 'Bearer ' + localStorage.token
         }
         const options = {
             headers: headers,

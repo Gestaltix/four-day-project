@@ -1,5 +1,6 @@
 import { connection } from '../../helpers/mapStateToProps.js';
 import { Redirect } from 'react-router-dom';
+import Me from '../me';
 import React, { Component } from 'react';
 import Post from '../../components/post';
 import './index.css';
@@ -16,9 +17,10 @@ class Feed extends Component {
         return this.state.feed !== 'unauthorized' ?
             this.state.feed ?
                 <div>
+                    <Me />
                     <ul className='feedList'>
                         {this.state.feed.map((blitz) => {
-                            return <Post blitz={blitz} key={uuid()} token={this.props.token} />
+                            return <Post blitz={blitz} key={uuid()} />
                         })}
                     </ul>
                 </div>

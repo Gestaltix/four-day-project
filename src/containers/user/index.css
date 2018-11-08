@@ -1,7 +1,13 @@
 .userPaper {
     padding: 2%;
+    background: linear-gradient(45deg, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%);
 }
 
 .userBlitzs {
     list-style: none;
+}
+
+.userImg {
+    border: 10px rgba(167,207,223,1);
+    border-radius: 100%;
 }

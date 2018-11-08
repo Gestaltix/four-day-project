@@ -36,7 +36,7 @@ class Login extends Component {
           </Paper>
         </div>
         :
-        <Redirect to='/me'></Redirect>
+        <Redirect to='/feed'></Redirect>
     );
   }
 
@@ -68,12 +68,6 @@ class Login extends Component {
           id: data._id
         })
       })
-  }
-
-  handleChange = (e, v) => {
-    this.setState({
-      value: v,
-    })
   }
 
   changeEmail = (e) => {
@@ -111,10 +105,14 @@ class Login extends Component {
     fetch('https://propulsion-blitz.herokuapp.com/api/login', options)
       .then(res => res.json())
       .then(data => {
+        localStorage.setItem('token', data.token);
         this.props.dispatch({
-          type: 'changeToken',
-          token: data.token,
+          type: 'setId',
           id: data._id
+        })
+        this.props.dispatch({
+          type: 'setToken',
+          token: data.token
         })
       })
   }
