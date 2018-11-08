@@ -9,19 +9,19 @@ class Post extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            blitz: this.props.blitz
+            post: this.props.post
         }
     }
     render() {
-        return this.state.blitz !== 'unauthorized' ?
-            this.state.blitz.content ?
+        return this.state.post !== 'unauthorized' ?
+            this.state.post.content ?
                 <li><Paper className='postContainer'>
                     <img
-                        src={this.state.blitz._user.avatar}
+                        src={this.state.post._user.avatar}
                         className='postAvatar' alt='Avatar' />
-                    <p><Link to={`/users/${this.state.blitz._user._id}`} ><Button>Profile</Button></Link></p>
-                    <p>{this.state.blitz.content}</p>
-                    <Button onClick={this.handleClick}>{this.state.blitz.isLiked ? 'Unlike' : 'Like'}</Button>
+                    <p><Link to={`/users/${this.state.post._user._id}`} ><Button>Profile</Button></Link></p>
+                    <p>{this.state.post.content}</p>
+                    <Button onClick={this.handleClick}>{this.state.post.isLiked ? 'Unlike' : 'Like'}</Button>
                 </Paper></li >
                 :
                 null
@@ -38,11 +38,11 @@ class Post extends Component {
             headers: headers,
             method: 'POST'
         }
-        fetch(`https://propulsion-blitz.herokuapp.com/api/blitzs/${this.props.blitz._id}/like`, options)
+        fetch(`https://propulsion-post.herokuapp.com/api/posts/${this.props.post._id}/like`, options)
             .then(res => res.status === 401 ? 'unauthorized' : res.json())
             .then(data => {
                 this.setState({
-                    blitz: data
+                    post: data
                 })
             })
     }

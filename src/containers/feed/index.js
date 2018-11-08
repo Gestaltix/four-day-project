@@ -8,21 +8,15 @@ import NewPost from '../../components/newPost/index.js';
 const uuid = require('uuid/v4');
 
 class Feed extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            feed: null,
-        }
-    }
     render() {
         return <div>
             <Me />
-            {this.state.feed !== 'unauthorized' ?
-                this.state.feed ?
+            {this.props.feed !== 'unauthorized' ?
+                this.props.feed ?
                     <ul className='feedList'>
                         <NewPost />
-                        {this.state.feed.map((blitz) => {
-                            return <Post blitz={blitz} key={uuid()} />
+                        {this.props.feed.map((post) => {
+                            return <Post post={post} key={uuid()} />
                         })}
                     </ul>
                     :
@@ -43,7 +37,8 @@ class Feed extends Component {
         fetch('https://propulsion-blitz.herokuapp.com/api/feed', options)
             .then(res => res.status === 401 ? 'unauthorized' : res.json())
             .then(data => {
-                this.setState({
+                this.props.dispatch({
+                    type: 'setFeed',
                     feed: data
                 })
             })

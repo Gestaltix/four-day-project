@@ -8,27 +8,21 @@ import Post from '../../components/post';
 import './index.css';
 
 class User extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            user: {},
-        }
-    }
     render() {
         return (
             <div>
                 <Me />
-                {this.state.user !== 'unauthorized' ?
-                    Object.keys(this.state.user).length !== 0 ?
+                {this.props.user !== 'unauthorized' ?
+                    this.props.user ?
                         <Paper className='userPaper'>
-                            <img src={this.state.user.avatar} alt='avatar' className='userImg'></img>
-                            <h3>{this.state.user.username}</h3>
+                            <img src={this.props.user.avatar} alt='avatar' className='userImg'></img>
+                            <h3>{this.props.user.username}</h3>
                             <Button onClick={this.clickHandler}>
-                                {this.state.user.isFollowed ?
+                                {this.props.user.isFollowed ?
                                     'Unfollow' : 'Follow'}
                             </Button>
                             <ul className='userBlitzs'>
-                                {this.state.user.blitzs.map(blitz => {
+                                {this.props.user.blitzs.map(blitz => {
                                     return <Post blitz={blitz} key={blitz._id} />
                                 })}
                             </ul>
@@ -51,7 +45,8 @@ class User extends Component {
         fetch(`https://propulsion-blitz.herokuapp.com/api/users/${this.props.match.params.id}`, options)
             .then(res => res.status === 401 ? 'unauthorized' : res.json())
             .then(data => {
-                this.setState({
+                this.props.dispatch({
+                    type: 'setUser',
                     user: data
                 })
             })
@@ -70,10 +65,12 @@ class User extends Component {
             .then(res => res.json())
             .then(data => {
                 data === 'unauthorized' ?
-                    this.setState({
+                    this.props.dispatch({
+                        type: 'setUser',
                         user: 'unauthorized'
                     }) :
-                    this.setState({
+                    this.props.dispatch({
+                        type: 'setUser',
                         user: { ...this.state.user, isFollowed: data.isFollowed }
                     })
             })

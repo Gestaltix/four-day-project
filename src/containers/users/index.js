@@ -6,19 +6,13 @@ import React, { Component } from 'react';
 import './index.css';
 
 class Users extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            users: null,
-        }
-    }
     render() {
         return <div>
             <Me />
-            {this.state.users !== 'unauthorized' ?
-                this.state.users ?
+            {this.props.users !== 'unauthorized' ?
+                this.props.users ?
                     <div>
-                        <ul className='usersUl'>{this.state.users.map(user => {
+                        <ul className='usersUl'>{this.props.users.map(user => {
                             return <MiniUser user={user} key={user._id} />
                         })}</ul>
                     </div>
@@ -38,10 +32,11 @@ class Users extends Component {
         }
 
         fetch('https://propulsion-blitz.herokuapp.com/api/users', options)
-            .then(res => { console.log(res); return res.status === 401 ? 'unauthorized' : res.json() })
+            .then(res => { return res.status === 401 ? 'unauthorized' : res.json() })
             .then(data => {
                 console.log(data)
-                this.setState({
+                this.props.dispatch({
+                    type: 'setUsers',
                     users: data
                 })
             })
