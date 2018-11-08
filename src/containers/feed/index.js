@@ -4,6 +4,7 @@ import Me from '../me';
 import React, { Component } from 'react';
 import Post from '../../components/post';
 import './index.css';
+import NewPost from '../../components/newPost/index.js';
 const uuid = require('uuid/v4');
 
 class Feed extends Component {
@@ -14,20 +15,21 @@ class Feed extends Component {
         }
     }
     render() {
-        return this.state.feed !== 'unauthorized' ?
-            this.state.feed ?
-                <div>
-                    <Me />
+        return <div>
+            <Me />
+            {this.state.feed !== 'unauthorized' ?
+                this.state.feed ?
                     <ul className='feedList'>
+                        <NewPost />
                         {this.state.feed.map((blitz) => {
                             return <Post blitz={blitz} key={uuid()} />
                         })}
                     </ul>
-                </div>
+                    :
+                    <p>Loading...</p>
                 :
-                <p>Loading...</p>
-            :
-            <Redirect to='/' />
+                <Redirect to='/' />}
+        </div>
     }
     componentDidMount = () => {
         const headers = new Headers({

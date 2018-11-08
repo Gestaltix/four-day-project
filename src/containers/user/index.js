@@ -1,8 +1,8 @@
 import { connection } from '../../helpers/mapStateToProps.js';
 import Button from '@material-ui/core/Button';
-import Logout from '../../components/logout';
 import Paper from '@material-ui/core/Paper';
-import { Link, Redirect } from 'react-router-dom';
+import Me from '../me';
+import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import Post from '../../components/post';
 import './index.css';
@@ -16,26 +16,28 @@ class User extends Component {
     }
     render() {
         return (
-            this.state.user !== 'unauthorized' ?
-                Object.keys(this.state.user).length !== 0 ?
-                    <Paper className='userPaper'>
-                        <img src={this.state.user.avatar} alt='avatar' className='userImg'></img>
-                        <p><Logout /><Link to='/me'><Button>Me</Button></Link></p>
-                        <h3>{this.state.user.username}</h3>
-                        <Button onClick={this.clickHandler}>
-                            {this.state.user.isFollowed ?
-                                'Unfollow' : 'Follow'}
-                        </Button>
-                        <ul className='userBlitzs'>
-                            {this.state.user.blitzs.map(blitz => {
-                                return <Post blitz={blitz} key={blitz._id} />
-                            })}
-                        </ul>
-                    </Paper>
+            <div>
+                <Me />
+                {this.state.user !== 'unauthorized' ?
+                    Object.keys(this.state.user).length !== 0 ?
+                        <Paper className='userPaper'>
+                            <img src={this.state.user.avatar} alt='avatar' className='userImg'></img>
+                            <h3>{this.state.user.username}</h3>
+                            <Button onClick={this.clickHandler}>
+                                {this.state.user.isFollowed ?
+                                    'Unfollow' : 'Follow'}
+                            </Button>
+                            <ul className='userBlitzs'>
+                                {this.state.user.blitzs.map(blitz => {
+                                    return <Post blitz={blitz} key={blitz._id} />
+                                })}
+                            </ul>
+                        </Paper>
+                        :
+                        <p>Loading...</p>
                     :
-                    <p>Loading...</p>
-                :
-                <Redirect to='/' />
+                    <Redirect to='/' />}
+            </div>
         )
     }
 

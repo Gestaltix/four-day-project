@@ -14,21 +14,21 @@ class LikedFeed extends Component {
         }
     }
     render() {
-        return this.state.feed !== 'unauthorized' ?
-            this.state.feed ?
-                <div>
-                    <Me />
-                    <NewPost token={this.props.token} />
+        return <div>
+            <Me />
+            {this.state.feed !== 'unauthorized' ?
+                this.state.feed ?
                     <ul className='feedList'>
+                        <NewPost />
                         {this.state.feed.map((blitz) => {
                             return blitz.isLiked ? <Post blitz={blitz} key={uuid()} /> : null
                         })}
                     </ul>
-                </div>
+                    :
+                    <p>Loading...</p>
                 :
-                <p>Loading...</p>
-            :
-            <Redirect to='/' />
+                <Redirect to='/' />}
+        </div>
     }
     componentDidMount = () => {
         const headers = new Headers({

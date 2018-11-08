@@ -13,18 +13,20 @@ class Users extends Component {
         }
     }
     render() {
-        return this.state.users !== 'unauthorized' ?
-            this.state.users ?
-                <div>
-                    <Me />
-                    <ul className='usersUl'>{this.state.users.map(user => {
-                        return <MiniUser user={user} key={user._id} />
-                    })}</ul>
-                </div>
+        return <div>
+            <Me />
+            {this.state.users !== 'unauthorized' ?
+                this.state.users ?
+                    <div>
+                        <ul className='usersUl'>{this.state.users.map(user => {
+                            return <MiniUser user={user} key={user._id} />
+                        })}</ul>
+                    </div>
+                    :
+                    <p>Loading...</p>
                 :
-                <p>Loading...</p>
-            :
-            <Redirect to='/' />
+                <Redirect to='/' />}
+        </div>
     }
     componentDidMount = () => {
         const headers = new Headers({
