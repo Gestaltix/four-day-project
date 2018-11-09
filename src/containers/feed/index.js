@@ -1,6 +1,7 @@
 import { connection } from '../../helpers/mapStateToProps.js';
 import Me from '../me';
 import React, { Component } from 'react';
+import { changePost, setFeed } from '../../Store/actions';
 import Post from '../../components/post';
 import './index.css';
 import NewPost from '../../components/newPost/index.js';
@@ -22,21 +23,11 @@ class Feed extends Component {
     }
 
     handleClick = (id) => {
-        this.props.dispatch({
-            special: true,
-            type: 'changePost',
-            method: 'POST',
-            endpoint: `blitzs/${id}/like`,
-        })
+        this.props.dispatch(changePost(id))
     }
 
     componentDidMount = () => {
-        this.props.dispatch({
-            special: true,
-            type: 'setFeed',
-            method: 'GET',
-            endpoint: 'feed',
-        })
+        this.props.dispatch(setFeed())
     }
 }
 

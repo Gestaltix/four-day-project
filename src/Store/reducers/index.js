@@ -7,7 +7,7 @@ const authentication = (state = {
     user: null,
     users: null,
 }, action) => {
-    let newState = state;
+    let newState = { ...state };
     switch (action.type) {
         case 'login':
             localStorage.setItem("token", action.data.token)
@@ -35,7 +35,7 @@ const users = (state = {
     user: null,
     token: null,
 }, action) => {
-    let newState = state;
+    let newState = { ...state };
     switch (action.type) {
         case 'changeUser':
             newState.users = newState.users.map((user) => {

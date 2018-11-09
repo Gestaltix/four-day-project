@@ -1,6 +1,7 @@
 import { connection } from '../../helpers/mapStateToProps.js';
 import MiniUser from '../../components/miniUser';
 import Me from '../me';
+import { setUsers, changeUser } from '../../Store/actions';
 import React, { Component } from 'react';
 import './index.css';
 
@@ -20,21 +21,11 @@ class Users extends Component {
     }
 
     handleClick = (id) => {
-        this.props.dispatch({
-            special: true,
-            type: 'changeUser',
-            method: 'POST',
-            endpoint: `users/${id}/follow`
-        })
+        this.props.dispatch(changeUser(id))
     }
 
     componentDidMount = () => {
-        this.props.dispatch({
-            special: true,
-            type: 'setUsers',
-            method: 'GET',
-            endpoint: 'users',
-        })
+        this.props.dispatch(setUsers())
     }
 }
 

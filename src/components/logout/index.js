@@ -10,6 +10,7 @@ class Logout extends Component {
             :
             <Redirect to='/' />
     }
+
     logoutHandler = () => {
         localStorage.clear()
         this.props.dispatch({

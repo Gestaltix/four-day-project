@@ -14,13 +14,22 @@ import store from './Store';
 import LikedFeed from './containers/likedFeed'
 import Users from './containers/users'
 
-if (localStorage.token) {
-    store.dispatch({
-        type: 'setToken',
-        token: localStorage.token,
-    })
+function requireAuth(nextState, replace) {
+    if (!localStorage.getItem("token")) {
+        store.dispatch({
+            type: 'logout'
+        })
+    } else {
+        store.dispatch({
+            type: 'setToken',
+            data: {
+                token: localStorage.getItem('token')
+            }
+        })
+    }
 }
 
+requireAuth()
 
 ReactDOM.render(
     <MuiThemeProvider theme={blue}>

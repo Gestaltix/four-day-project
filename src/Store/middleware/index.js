@@ -1,9 +1,8 @@
-
-
 const customMiddleWare = store => dispatch => action => {
     if (!action.special) {
         return dispatch(action)
     }
+
     const headers = new Headers({
         Authorization: store.getState().token ? 'Bearer ' + store.getState().token : null,
         'content-type': 'application/json'

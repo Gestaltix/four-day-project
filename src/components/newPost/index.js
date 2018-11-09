@@ -29,8 +29,7 @@ class NewPost extends Component {
     }
 
     submitHandler = (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
         const headers = new Headers({
             'content-type': 'application/json',
             Authorization: 'Bearer ' + localStorage.token

@@ -1,6 +1,7 @@
 import { connection } from '../../helpers/mapStateToProps.js';
 import NewPost from '../../components/newPost/index.js';
 import Me from '../me';
+import { changePost, setFeed } from '../../Store/actions';
 import { Redirect } from 'react-router-dom';
 import Post from '../../components/post';
 import React, { Component } from 'react';
@@ -26,21 +27,11 @@ class LikedFeed extends Component {
     }
 
     handleClick = (id) => {
-        this.props.dispatch({
-            special: true,
-            type: 'changePost',
-            method: 'POST',
-            endpoint: `blitzs/${id}/like`,
-        })
+        this.props.dispatch(changePost(id))
     }
 
     componentDidMount = () => {
-        this.props.dispatch({
-            special: true,
-            type: 'setFeed',
-            method: 'GET',
-            endpoint: 'feed',
-        })
+        this.props.dispatch(setFeed())
     }
 }
 

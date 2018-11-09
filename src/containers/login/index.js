@@ -2,6 +2,7 @@ import { connection } from '../../helpers/mapStateToProps';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { login, register } from '../../Store/actions';
 import { Redirect, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import './index.css';
@@ -55,32 +56,12 @@ class Login extends Component {
 
   submitLogin = (e) => {
     e.preventDefault()
-    this.props.dispatch({
-      special: true,
-      type: 'login',
-      method: 'POST',
-      endpoint: 'login',
-      body: {
-        // email: this.state.email,
-        // password: this.state.password
-        email: 'fake3@email.com',
-        password: 'password'
-      }
-    })
+    this.props.dispatch(login(this.state.email, this.state.password))
   }
 
   submitRegistration = (e) => {
     e.preventDefault();
-    this.props.dispatch({
-      special: true,
-      type: 'login',
-      method: 'POST',
-      endpoint: 'users',
-      body: {
-        // email: this.state.email,
-        // password: this.state.password
-      },
-    })
+    this.props.dispatch(register(this.state.email, this.state.password))
   }
 }
 
