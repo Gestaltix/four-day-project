@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { login, register } from '../../Store/actions';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import './index.css';
 
@@ -67,4 +67,4 @@ class Login extends Component {
 
 const connectedLogin = connection(Login)
 
-export default withRouter(connectedLogin);
+export default connectedLogin;

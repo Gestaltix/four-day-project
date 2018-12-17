@@ -13,7 +13,7 @@ class Feed extends Component {
             {this.props.feed ?
                 <ul className='feedList'>
                     <NewPost />
-                    {this.props.feed.map((post) => {
+                    {this.props.feed.map((post) => { // right here
                         return <Post post={post} key={post._id} handleClick={this.handleClick} />
                     })}
                 </ul>
@@ -27,10 +27,11 @@ class Feed extends Component {
     }
 
     componentDidMount = () => {
+        console.log('from the feed', localStorage)
+        console.log('from the feed props', this.props)
         this.props.dispatch(setFeed())
     }
 }
-
 const connectedFeed = connection(Feed)
 
 export default connectedFeed

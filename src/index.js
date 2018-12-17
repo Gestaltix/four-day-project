@@ -14,30 +14,14 @@ import store from './Store';
 import LikedFeed from './containers/likedFeed'
 import Users from './containers/users'
 
-function requireAuth(nextState, replace) {
-    if (!localStorage.getItem("token")) {
-        store.dispatch({
-            type: 'logout'
-        })
-    } else {
-        store.dispatch({
-            type: 'setToken',
-            data: {
-                token: localStorage.getItem('token')
-            }
-        })
-    }
-}
-
-requireAuth()
-
 ReactDOM.render(
     <MuiThemeProvider theme={blue}>
         <Provider store={store}>
             <BrowserRouter>
                 <Switch>
-                    <Route exact path='/' component={Login} />
                     <Route exact path='/feed' component={Feed} />
+                    <Route exact path='/' component={Login} />
+                    <Route path='/login' component={Login} />
                     <Route exact path='/likedfeed' component={LikedFeed} />
                     <Route exact path='/users' component={Users} />
                     <Route exact path='/users/:id' component={User} />

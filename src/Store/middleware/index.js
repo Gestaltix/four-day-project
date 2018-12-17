@@ -4,7 +4,7 @@ const customMiddleWare = store => dispatch => action => {
     }
 
     const headers = new Headers({
-        Authorization: store.getState().token ? 'Bearer ' + store.getState().token : null,
+        Authorization: localStorage.getItem('token') ? 'Bearer ' + localStorage.getItem('token') : null,
         'content-type': 'application/json'
     })
     const options = {

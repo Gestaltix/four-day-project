@@ -52,9 +52,11 @@ const users = (state = {
             newState.user = action.data;
             return newState;
         case 'changeUserPost':
-            newState.user.blitzs = newState.user.blitzs.map((blitz) => {
+            const newUser = newState.user
+            newUser.blitzs = newState.user.blitzs.map((blitz) => {
                 return blitz._id === action.data._id ? action.data : blitz;
             })
+            newState.user = newUser
             return newState
         default:
             return state

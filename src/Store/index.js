@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
 import customMiddleWare from './middleware';
-
 const reducer = (state = {
     id: null,
     token: null,
@@ -8,6 +7,7 @@ const reducer = (state = {
     user: null,
     users: null,
 }, action) => {
+    console.log(localStorage)
     let newState = { ...state };
     switch (action.type) {
         case 'login':
@@ -43,7 +43,7 @@ const reducer = (state = {
             newState.user = action.data;
             return newState;
         case 'changeUserPost':
-            const newUser = newState.user
+            const newUser = { ...newState.user }
             newUser.blitzs = newState.user.blitzs.map((blitz) => {
                 return blitz._id === action.data._id ? action.data : blitz
             })
